@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import {
+  deleteCompletedTasks,
   deleteTask,
   editTask,
   getTasks,
@@ -7,15 +8,33 @@ import {
   toggleAllTasks,
   toggleTaskCompletion,
 } from "./services/task.service";
-import { useTaskStore } from "./taskStore";
+import { useTaskStore } from "./store/taskStore";
 
 export function App() {
-  const { tasks, newTask, filterText, setTasks, setNewTask, setFilterText } =
-    useTaskStore();
+  const {
+    tasks,
+    newTask,
+    filterText,
+    filterStatus,
+    setTasks,
+    setNewTask,
+    setFilterText,
+    setFilterStatus,
+  } = useTaskStore();
 
   useEffect(() => {
     getTasks(setTasks);
   }, []);
+
+  const filteredTasks = tasks
+    .filter((task) =>
+      task.text.toLowerCase().includes(filterText.toLowerCase())
+    )
+    .filter((task) => {
+      if (filterStatus === "Completed") return task.completed;
+      if (filterStatus === "Incomplete") return !task.completed;
+      return true;
+    });
 
   return (
     <div>
@@ -32,12 +51,24 @@ export function App() {
         Adicionar
       </button>
 
-      <input
-        type="text"
-        placeholder="Filtrar por texto"
-        value={filterText}
-        onChange={(e) => setFilterText(e.target.value)}
-      />
+      <div className="filters">
+        <input
+          type="text"
+          placeholder="Filtrar por texto"
+          value={filterText}
+          onChange={(e) => setFilterText(e.target.value)}
+        />
+
+        <div>
+          <button onClick={() => setFilterStatus("All")}>Todas</button>
+          <button onClick={() => setFilterStatus("Completed")}>
+            Concluídas
+          </button>
+          <button onClick={() => setFilterStatus("Incomplete")}>
+            Não Concluídas
+          </button>
+        </div>
+      </div>
 
       <div>
         <button
@@ -50,10 +81,15 @@ export function App() {
         >
           Marcar Tudo como Incompleto
         </button>
+        <button
+          onClick={() => deleteCompletedTasks(tasks, () => getTasks(setTasks))}
+        >
+          Deletar Concluídas
+        </button>
       </div>
 
       <ul>
-        {tasks
+        {filteredTasks
           .filter((task) =>
             task.text.toLowerCase().includes(filterText.toLowerCase())
           )

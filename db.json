@@ -1,22 +1,27 @@
 {
   "tasks": [
     {
-      "id": 1,
-      "text": "json-server",
-      "completed": false
+      "text": "Nova Tarefa",
+      "completed": false,
+      "id": 1
     },
     {
-      "text": "teste refresh",
+      "text": "segunda tarefa",
+      "completed": true,
+      "id": 2
+    },
+    {
+      "text": "terceira tarefa",
       "completed": false,
       "id": 3
     },
     {
-      "text": "ts edit",
-      "id": 4,
-      "completed": true
+      "text": "quinta",
+      "completed": true,
+      "id": 4
     },
     {
-      "text": "tete 3",
+      "text": "sexta",
       "completed": false,
       "id": 5
     }

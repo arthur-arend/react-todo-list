@@ -95,3 +95,21 @@ export const toggleAllTasks = async (
     console.error("Erro ao atualizar todas as tarefas:", error);
   }
 };
+
+export const deleteCompletedTasks = async (
+  tasks: ITask[],
+  getTasks: () => void
+) => {
+  try {
+    const deletePromises = tasks
+      .filter((task) => task.completed)
+      .map(async (task) => {
+        await axios.delete(`http://localhost:3000/tasks/${task.id}`);
+      });
+
+    await Promise.all(deletePromises);
+    await getTasks();
+  } catch (error) {
+    console.error("Erro ao excluir tarefas concluídas:", error);
+  }
+};

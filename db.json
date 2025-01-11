@@ -13,17 +13,12 @@
     {
       "text": "ts edit",
       "id": 4,
-      "completed": false
+      "completed": true
     },
     {
       "text": "tete 3",
       "completed": false,
       "id": 5
-    },
-    {
-      "text": "ssss",
-      "id": 6,
-      "completed": false
     }
   ]
 }

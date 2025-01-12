@@ -1,3 +1,13 @@
+# Rodar o Projeto
+
+Depois de baixar o projeto e instalar as dependências:
+
+Para rodar o Json Server
+npx json-server --watch db.json para
+
+Para Rodar o projeto
+npx vite
+
 # Lista de Tarefas (To-Do List)
 
 Este projeto é um desafio técnico para avaliar as habilidades do desenvolvedor frontend.

@@ -1,24 +1,3 @@
 {
-  "tasks": [
-    {
-      "text": "Nova Tarefa",
-      "completed": false,
-      "id": 1
-    },
-    {
-      "text": "segunda tarefa",
-      "completed": true,
-      "id": 2
-    },
-    {
-      "text": "sexta",
-      "completed": true,
-      "id": 5
-    },
-    {
-      "text": "dasdasd",
-      "completed": false,
-      "id": 6
-    }
-  ]
+  "tasks": []
 }

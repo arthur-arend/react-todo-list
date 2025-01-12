@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Filters } from "./components/Filter/filter.component";
 import {
   deleteCompletedTasks,
   deleteTask,
@@ -11,30 +12,14 @@ import {
 import { useTaskStore } from "./store/taskStore";
 
 export function App() {
-  const {
-    tasks,
-    newTask,
-    filterText,
-    filterStatus,
-    setTasks,
-    setNewTask,
-    setFilterText,
-    setFilterStatus,
-  } = useTaskStore();
+  const { tasks, newTask, filterText, setTasks, setNewTask, getFilteredTasks } =
+    useTaskStore();
+
+  const filteredTasks = getFilteredTasks();
 
   useEffect(() => {
     getTasks(setTasks);
   }, []);
-
-  const filteredTasks = tasks
-    .filter((task) =>
-      task.text.toLowerCase().includes(filterText.toLowerCase())
-    )
-    .filter((task) => {
-      if (filterStatus === "Completed") return task.completed;
-      if (filterStatus === "Incomplete") return !task.completed;
-      return true;
-    });
 
   return (
     <div>
@@ -51,24 +36,7 @@ export function App() {
         Adicionar
       </button>
 
-      <div className="filters">
-        <input
-          type="text"
-          placeholder="Filtrar por texto"
-          value={filterText}
-          onChange={(e) => setFilterText(e.target.value)}
-        />
-
-        <div>
-          <button onClick={() => setFilterStatus("All")}>Todas</button>
-          <button onClick={() => setFilterStatus("Completed")}>
-            Concluídas
-          </button>
-          <button onClick={() => setFilterStatus("Incomplete")}>
-            Não Concluídas
-          </button>
-        </div>
-      </div>
+      <Filters />
 
       <div>
         <button

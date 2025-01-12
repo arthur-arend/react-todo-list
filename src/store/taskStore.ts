@@ -15,6 +15,7 @@ interface TaskStoreState {
   setNewTask: (text: string) => void;
   setFilterText: (text: string) => void;
   setFilterStatus: (status: "All" | "Completed" | "Incomplete") => void;
+  getFilteredTasks: () => ITask[];
 }
 
 export const useTaskStore = create<TaskStoreState>((set, get) => ({
@@ -26,4 +27,17 @@ export const useTaskStore = create<TaskStoreState>((set, get) => ({
   setNewTask: (text) => set({ newTask: text }),
   setFilterText: (text) => set({ filterText: text }),
   setFilterStatus: (status) => set({ filterStatus: status }),
+
+  getFilteredTasks: () => {
+    const { tasks, filterText, filterStatus } = get();
+    return tasks
+      .filter((task) =>
+        task.text.toLowerCase().includes(filterText.toLowerCase())
+      )
+      .filter((task) => {
+        if (filterStatus === "Completed") return task.completed;
+        if (filterStatus === "Incomplete") return !task.completed;
+        return true;
+      });
+  },
 }));

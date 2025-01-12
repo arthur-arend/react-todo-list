@@ -11,19 +11,14 @@
       "id": 2
     },
     {
-      "text": "terceira tarefa",
-      "completed": false,
-      "id": 3
-    },
-    {
-      "text": "quinta",
-      "completed": true,
-      "id": 4
-    },
-    {
       "text": "sexta",
-      "completed": false,
+      "completed": true,
       "id": 5
+    },
+    {
+      "text": "dasdasd",
+      "completed": false,
+      "id": 6
     }
   ]
 }

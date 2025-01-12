@@ -1,14 +1,13 @@
+import { Button, Container, TextField } from "@mui/material";
 import { useEffect } from "react";
+import { Card } from "./components/Card/card.component";
 import { Filters } from "./components/Filter/filter.component";
 import { Header } from "./components/Header/header.component";
 import {
   deleteCompletedTasks,
-  deleteTask,
-  editTask,
   getTasks,
   postTask,
   toggleAllTasks,
-  toggleTaskCompletion,
 } from "./services/task.service";
 import { useTaskStore } from "./store/taskStore";
 
@@ -23,69 +22,60 @@ export function App() {
   }, []);
 
   return (
-    <div>
+    <Container>
       <Header />
 
-      <input
-        type="text"
-        value={newTask}
-        onChange={(e) => setNewTask(e.target.value)}
-      />
-      <button
-        onClick={() => postTask(newTask, () => getTasks(setTasks), setNewTask)}
+      <Container
+        sx={{
+          pt: 4,
+        }}
       >
-        Adicionar
-      </button>
-
-      <Filters />
-
-      <div>
-        <button
-          onClick={() => toggleAllTasks(tasks, true, () => getTasks(setTasks))}
+        <TextField
+          type="text"
+          value={newTask}
+          onChange={(e) => setNewTask(e.target.value)}
+        />
+        <Button
+          variant="contained"
+          onClick={() =>
+            postTask(newTask, () => getTasks(setTasks), setNewTask)
+          }
         >
-          Marcar Tudo como Concluído
-        </button>
-        <button
-          onClick={() => toggleAllTasks(tasks, false, () => getTasks(setTasks))}
-        >
-          Marcar Tudo como Incompleto
-        </button>
-        <button
-          onClick={() => deleteCompletedTasks(tasks, () => getTasks(setTasks))}
-        >
-          Deletar Concluídas
-        </button>
-      </div>
+          Adicionar
+        </Button>
 
-      <ul>
+        <Container sx={{ pt: 4 }}>
+          <Button
+            onClick={() =>
+              toggleAllTasks(tasks, true, () => getTasks(setTasks))
+            }
+          >
+            Marcar Tudo como Concluído
+          </Button>
+          <Button
+            onClick={() =>
+              toggleAllTasks(tasks, false, () => getTasks(setTasks))
+            }
+          >
+            Marcar Tudo como Incompleto
+          </Button>
+          <Button
+            onClick={() =>
+              deleteCompletedTasks(tasks, () => getTasks(setTasks))
+            }
+          >
+            Deletar Concluídas
+          </Button>
+        </Container>
+        <Filters />
         {filteredTasks
           .filter((task) =>
             task.text.toLowerCase().includes(filterText.toLowerCase())
           )
-          .map((task) => (
-            <li key={task.id}>
-              <input
-                type="text"
-                value={task.text}
-                onChange={(e) =>
-                  editTask(task.id, e.target.value, () => getTasks(setTasks))
-                }
-              />
-              <button
-                onClick={() =>
-                  toggleTaskCompletion(task, () => getTasks(setTasks))
-                }
-              >
-                {task.completed ? "Desmarcar" : "Concluir"}
-              </button>
-              <button
-                onClick={() => deleteTask(task.id, () => getTasks(setTasks))}
-              >
-                Remover
-              </button>
-            </li>
+          .map((task, index) => (
+            <Card task={task} key={index} />
           ))}
-      </ul>
-    </div>
+      </Container>
+    </Container>
   );
 }

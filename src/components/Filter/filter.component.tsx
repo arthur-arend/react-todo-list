@@ -1,3 +1,4 @@
+import { Button, Container, TextField } from "@mui/material";
 import { useTaskStore } from "../../store/taskStore";
 
 export const Filters = () => {
@@ -5,8 +6,8 @@ export const Filters = () => {
     useTaskStore();
 
   return (
-    <div className="filters">
-      <input
+    <Container sx={{ pt: 6, textAlign: "start" }}>
+      <TextField
         type="text"
         placeholder="Filtrar por texto"
         value={filterText}
@@ -14,12 +15,12 @@ export const Filters = () => {
       />
 
       <div>
-        <button onClick={() => setFilterStatus("All")}>Todas</button>
-        <button onClick={() => setFilterStatus("Completed")}>Concluídas</button>
-        <button onClick={() => setFilterStatus("Incomplete")}>
+        <Button onClick={() => setFilterStatus("All")}>Todas</Button>
+        <Button onClick={() => setFilterStatus("Completed")}>Concluídas</Button>
+        <Button onClick={() => setFilterStatus("Incomplete")}>
           Não Concluídas
-        </button>
+        </Button>
       </div>
-    </div>
+    </Container>
   );
 };

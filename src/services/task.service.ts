@@ -1,10 +1,5 @@
 import axios from "axios";
-
-interface ITask {
-  id: number;
-  text: string;
-  completed: boolean;
-}
+import { ITask } from "../domain/interfaces/ITask.interface";
 
 export const getTasks = async (setTasks: (tasks: ITask[]) => void) => {
   try {

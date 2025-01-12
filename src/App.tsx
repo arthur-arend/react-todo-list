@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Filters } from "./components/Filter/filter.component";
+import { Header } from "./components/Header/header.component";
 import {
   deleteCompletedTasks,
   deleteTask,
@@ -23,7 +24,7 @@ export function App() {
 
   return (
     <div>
-      <h1>Lista de Tarefas</h1>
+      <Header />
 
       <input
         type="text"
